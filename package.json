@@ -1,0 +1,22 @@
+{
+  "name": "basic-press",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.org/Automattic/_s.svg?branch=master)](https://travis-ci.org/Automattic/_s)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://fahidjavid@github.com/fahidjavid/basic-theme.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fahidjavid/basic-theme/issues"
+  },
+  "homepage": "https://github.com/fahidjavid/basic-theme#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
