@@ -24,3 +24,24 @@ function basic_press_customize_preview_js() {
 	wp_enqueue_script( 'basic_press_customizer', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview' ), '20151215', true );
 }
 add_action( 'customize_preview_init', 'basic_press_customize_preview_js' );
+
+
+if ( ! function_exists( 'basicpress_sanitize' ) ) :
+    /**
+     * Default sanitize function to use where no sanitization needed.
+     * It's to fulfil sanitization function requirement while adding a
+     * customizer setting.
+     *
+     * @param Mixed
+     * @return Mixed
+     */
+    function basicpress_sanitize( $value ) {
+        return $value;
+    }
+endif;
+
+
+/**
+ * Customizer Settings
+ */
+require_once( get_template_directory() . '/inc/customizer/theme-settings/theme-settings.php' );
