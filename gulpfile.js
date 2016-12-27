@@ -17,7 +17,7 @@ gulp.task('default', function() {
  */
 gulp.task('browser-sync', function() {
     browserSync.init({
-        proxy: "basic-press.dev"
+        proxy: "basicpress.dev"
     });
 });
 
@@ -37,7 +37,7 @@ gulp.task('sass', function () {
 gulp.task('automate', function() {
 
     browserSync.init({
-        proxy: "repo-tourpress.dev"
+        proxy: "basicpress.dev"
     });
 
     gulp.watch('scss/**/*.scss', ['sass']);
