@@ -6,6 +6,8 @@
 var project 		= 'basicpress', // Project name, used for build zip.
     url 		= 'basicpress.dev', // Local Development URL for BrowserSync. Change as-needed.
     build 		= './build-theme/', // Files that you want to package into a zip go here
+    pluginName  = 'basic-press-framework',
+    pluginDesti = './inc/plugins/',
     buildInclude 	= [
 
         // include common file types
@@ -43,7 +45,8 @@ var gulp = require('gulp'),
     cmq          = require('gulp-combine-media-queries'),
     newer        = require('gulp-newer'),
     rimraf       = require('gulp-rimraf'), // Helps with removing files and directories in our run tasks
-    imagemin     = require('gulp-imagemin');
+    imagemin     = require('gulp-imagemin'),
+    cache        = require('gulp-cache');
 
 /**
  * Task - Default
@@ -57,7 +60,19 @@ gulp.task('default', function() {
  */
 gulp.task('browser-sync', function() {
     browserSync.init({
-        proxy: "basicpress.dev"
+        // Read here http://www.browsersync.io/docs/options/
+        proxy: url,
+
+        // port: 8080,
+
+        // Tunnel the Browsersync server through a random Public URL
+        // tunnel: true,
+
+        // Attempt to use the URL "http://my-private-site.localtunnel.me"
+        // tunnel: "ppress",
+
+        // Inject CSS changes
+        injectChanges: true
     });
 });
 
@@ -90,23 +105,6 @@ gulp.task('sass', function () {
  */
 gulp.task('automate', function() {
 
-    browserSync.init({
-
-        // Read here http://www.browsersync.io/docs/options/
-        proxy: url,
-
-        // port: 8080,
-
-        // Tunnel the Browsersync server through a random Public URL
-        // tunnel: true,
-
-        // Attempt to use the URL "http://my-private-site.localtunnel.me"
-        // tunnel: "ppress",
-
-        // Inject CSS changes
-        injectChanges: true
-    });
-
     gulp.watch('scss/**/*.scss', ['sass']);
     gulp.watch("**/*.php").on('change', browserSync.reload);
 });
@@ -132,4 +130,29 @@ gulp.task('images', function() {
         .pipe(gulp.dest('img/'))
         .pipe( notify( { message: 'Images task complete', onLast: true } ) );
 });
+
+/**
+ * Task - Clean gulp cache
+ */
+gulp.task('clear', function () {
+    cache.clearAll();
+});
+
+/**
+ * Build Plugin Zip
+ */
+gulp.task('plugin-zip', function () {
+    return gulp.src( [
+
+        // Include
+        '../../plugins/'+ pluginName +'/**/*',
+
+        // Exclude
+        '!../../plugins/'+ pluginName +'/**/.DS_Store',
+    ] )
+        .pipe ( zip ( pluginName +'.zip' ) )
+        .pipe ( gulp.dest ( pluginDesti ) )
+        .pipe ( notify ( { message : 'Plugin Zip is created.', onLast : true } ) );
+});
+
 
