@@ -3,7 +3,7 @@
  */
 
 // Project configuration
-var project 		= 'basicpress', // Project name, used for build zip.
+var theme 		= 'basic-press', // Project name, used for build zip.
     url 		= 'basicpress.dev', // Local Development URL for BrowserSync. Change as-needed.
     build 		= './build-theme/', // Files that you want to package into a zip go here
     pluginName  = 'basic-press-framework',
@@ -155,4 +155,28 @@ gulp.task('plugin-zip', function () {
         .pipe ( notify ( { message : 'Plugin Zip is created.', onLast : true } ) );
 });
 
+/**
+ * Build Theme Zip
+ */
+gulp.task('theme-zip', function () {
+    return gulp.src( [
+        // Include
+        './**/*',
 
+        // Exclude
+        '!./prepros.cfg',
+        '!./**/.DS_Store',
+        '!./less/**',
+        '!./less',
+        '!./node_modules/**',
+        '!./node_modules',
+        '!./package.json',
+        '!./gulpfile.js'
+    ])
+        .pipe ( zip ( theme + '.zip' ) )
+        .pipe ( gulp.dest ( '../' ) )
+        .pipe ( notify ( {
+            message : 'Theme zip is ready.',
+            onLast : true
+        } ) );
+});
