@@ -107,15 +107,23 @@ function basic_press_styles() {
 
     if ( ! is_admin() ) :
 
-        wp_enqueue_style( 'basicpress-style', get_stylesheet_uri() );
-
         // bootstrap
         wp_enqueue_style(
             'bootstrap',
-            $template_directory_uri . '/css/bootstrap.css',
+            $template_directory_uri . '/css/bootstrap/bootstrap.css',
             array(),
             '4.0.0'
         );
+
+        // bootstrap
+        wp_enqueue_style(
+            'main',
+            $template_directory_uri . '/css/main.css',
+            array(),
+            '1.0.0'
+        );
+
+        wp_enqueue_style( 'basicpress-style', get_stylesheet_uri() );
 
     endif;
 
