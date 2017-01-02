@@ -15,6 +15,15 @@
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="profile" href="http://gmpg.org/xfn/11">
+<meta name="description" content="<?php
+
+	if ( is_single() ) {
+		single_post_title('', true);
+	} else {
+		bloginfo('name'); echo " - "; bloginfo('description');
+	}
+
+?>" />
 
 <?php wp_head(); ?>
 </head>
@@ -28,18 +37,14 @@
 					<div class="col-lg-6">
 						<div class="site-branding">
 							<?php
-							if ( is_front_page() && is_home() ) : ?>
-								<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-							<?php else : ?>
-								<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-								<?php
-							endif;
 
-							$description = get_bloginfo( 'description', 'display' );
-							if ( $description || is_customize_preview() ) : ?>
-								<p class="site-description"><?php echo $description; /* WPCS: xss ok. */ ?></p>
-								<?php
-							endif; ?>
+								$logo_path        = get_option('theme_sitelogo');
+								$retina_logo_path = get_option('theme_sitelogo_retina');
+
+								// site logo img or title with description
+								basicpress_site_logo( $logo_path, $retina_logo_path );
+
+							?>
 						</div><!-- .site-branding -->
 					</div>
 
