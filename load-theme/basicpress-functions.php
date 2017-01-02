@@ -41,8 +41,9 @@ if( ! function_exists( 'basicpress_site_logo' ) ) {
             <?php
         } else {
             ?>
-            <h1 class="site-title"><a href="<?php echo esc_url(home_url('/')); ?>"
-                                      rel="home"><?php bloginfo('name'); ?></a></h1>
+            <h1 class="site-title">
+                <a href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a>
+            </h1>
             <?php
 
             $description = get_bloginfo('description');

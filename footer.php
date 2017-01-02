@@ -25,6 +25,9 @@
 		</div>
 	</div>
 
+	<!-- scroll to top -->
+	<a href="#top" id="scroll-top"><i class="fa fa-chevron-up"></i></a>
+
 </div><!-- #page -->
 
 <?php wp_footer(); ?>

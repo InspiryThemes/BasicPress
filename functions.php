@@ -148,6 +148,8 @@ function basic_press_scripts() {
     if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
         wp_enqueue_script( 'comment-reply' );
     }
+
+    wp_enqueue_script( 'basicpress', get_template_directory_uri() . '/js/basicpress.js', array( 'jquery' ), '1.0.0', true );
 }
 add_action( 'wp_enqueue_scripts', 'basic_press_scripts' );
 
