@@ -58,6 +58,11 @@
 
     // Automate Process - Compiling Sass and Injecting PHP + CSS + JS through watch (live).
     gulp.task('default', function() {
+
+        browserSync.init({
+            proxy: url
+        });
+
         gulp.watch('scss/**/*.scss', ['sass']);
         gulp.watch("**/*.php").on('change', browserSync.reload);
     });
