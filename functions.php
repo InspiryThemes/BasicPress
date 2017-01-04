@@ -206,6 +206,47 @@ if ( ! function_exists( 'basicpress_scripts' ) ) {
     add_action('wp_enqueue_scripts', 'basicpress_scripts');
 }
 
+if( ! function_exists( 'basicpress_debugging_info' ) ) {
+    /**
+     * Display commented debugging info in the site head
+     */
+    function basicpress_debugging_info() {
+
+        if ( is_feed() ) return;
+
+        $theme = wp_get_theme();
+        $child = "";
+
+        if( is_child_theme() ) {
+
+            $child  = "- - - - - - - - - - -\n";
+            $child .= "ChildTheme: " . $theme->get( 'Name' ) . "\n";
+            $child .= "ChildTheme Version: " . $theme->get( 'Version' ) . "\n";
+            $child .= "ChildTheme Installed: " . $theme->get( 'Template' ) . "\n\n";
+
+            $theme = wp_get_theme( $theme->get( 'Template' ) );
+        }
+
+        $info  = "\n\n<!--\n";
+        $info .= "Debugging Info for the theme support: \n\n";
+        $info .= "Theme: " . $theme->get( 'Name' ) . "\n";
+        $info .= "Version: " . $theme->get( 'Version' ) . "\n";
+        $info .= "Installed: " . $theme->get_template() . "\n";
+
+        $info .= $child;
+
+        //memory setting, peak usage and number of active plugins
+        $info .= "ML:" . trim( @ini_get( 'memory_limit' ) , 'M' ) . " PU:" . ( ceil( memory_get_peak_usage() / 1000 / 1000 ) ) . " AP:" . count( get_option( 'active_plugins' ) ) ."\n";
+        $info .= "WP:" . get_bloginfo( 'version' ) . "\n";
+
+        $info .= "-->\n\n";
+        echo apply_filters( 'basicpress_debugging_info', $info );
+    }
+
+    add_action( 'wp_head', 'basicpress_debugging_info', 1000 );
+    add_action( 'admin_print_scripts', 'basicpress_debugging_info', 1000 );
+}
+
 /**
  * Load Theme
  */
